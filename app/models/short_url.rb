@@ -1,6 +1,6 @@
 class ShortUrl < ApplicationRecord
 
-  CHARACTERS = [*'0'..'9', *'a'..'z', *'A'..'Z'].freeze
+  include Convertible
 
   validate :validate_full_url
   validates_uniqueness_of :full_url, case_sensitive: true
