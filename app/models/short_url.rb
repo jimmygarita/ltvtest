@@ -27,6 +27,10 @@ class ShortUrl < ApplicationRecord
     Resque.enqueue(ShortUrl, self.id)
   end
 
+  def public_attributes
+    short_code
+  end
+
   private
 
   def validate_full_url
