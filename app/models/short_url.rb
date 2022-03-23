@@ -10,7 +10,7 @@ class ShortUrl < ApplicationRecord
 
   def short_code
     return nil if self.id.nil?
-    integer_to_chars_base self.id
+    integer_to_custom_base self.id
   end
 
   def update_title!
