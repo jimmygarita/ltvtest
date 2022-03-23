@@ -10,11 +10,11 @@ module Convertible
     needle = int_val
     base = CHARACTERS.count
     while needle >= base
-      stack << needle/base
-      needle = needle%base
+      stack << needle%base
+      needle = needle/base
     end
     stack << needle
-    stack.map { |s| CHARACTERS[s] }.join
+    stack.reverse.map { |s| CHARACTERS[s] }.join
   end
 
 end
