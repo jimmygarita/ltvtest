@@ -8,7 +8,7 @@ services:
     command: bin/rails server --port 3000 --binding 0.0.0.0
     env_file: ./dev.env
     ports:
-    - "3000:3000"
+    - 3000:3000
     depends_on:
     - mariadb
     - redis_dev
@@ -54,6 +54,18 @@ services:
     networks:
     - app
 
+  redis_redisinsight:
+    image: redislabs/redisinsight
+    container_name: redisinsight_ltv
+    volumes:
+      - redis_insight:/db
+    depends_on:
+    - redis_dev
+    networks:
+    - app
+    ports:
+    - 8002:8001
+
   webpacker:
     image: short-app
     environment:
@@ -67,6 +79,7 @@ services:
       - '3035:3035'
 
 volumes:
+  redis_insight:
   data-mysql:
     driver: local
 
