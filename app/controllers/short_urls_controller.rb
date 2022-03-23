@@ -9,6 +9,12 @@ class ShortUrlsController < ApplicationController
   end
 
   def create
+    url = ShortUrl.new(full_url: params[:full_url], click_count: 0)
+    if url.save
+      render status: :created, json: { short_code: url.short_code }
+    else
+      render status: :unprocessable_entity, json: { errors: url.errors.full_messages }
+    end
   end
 
   def show
