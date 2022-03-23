@@ -14,6 +14,17 @@ class ShortUrl < ApplicationRecord
   end
 
   def update_title!
+    page = Net::HTTP.get(URI(self.full_url))
+    start_title = page.index('<title>')
+    end_title = page.index('</title>')
+    if start_title & end_title
+      title = page[(start_title + 7)...end_title]
+      update_column(:title, title)
+    end
+  end
+
+  def async_create_archive
+    Resque.enqueue(ShortUrl, self.id)
   end
 
   private
